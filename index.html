@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en-US">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+		<title>
+			EXPERIENCE WEEZER
+		</title>
+		<meta name="title"       content="EXPERIENCE WEEZER"/>
+		<meta name="description" content="Experience the band weezer IN REAL TIME!!!"/>
+
+		<meta name="keywords" content="experience,weezer,say,it,aint,so,blue,album,i,cant,stop,partying,raditude"/>
+
+		<meta property="og:image" content="/assets/img/icon.jpg"/>
+
+		<style type="text/css">
+			*
+			{
+				box-sizing: border-box;
+				font-family: Arial, Helvetica, sans-serif;
+			}
+
+			#viewport
+			{
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+
+				overflow: hidden;
+
+				background-color: #000;
+			}
+
+			#start
+			{
+				z-index: 500;
+
+				height: 200px;
+				width: 600px;
+
+				color: #FFF;
+				font-weight: 700;
+
+				border-radius: 100px;
+
+				background-image: url(/assets/img/weezer.jpg);
+				background-size: 100% 100%;
+
+				overflow: hidden;
+			}
+
+			#start .title
+			{
+				font-size: 2em;
+			}
+
+			#start .subtitle
+			{
+				font-size: 1.3em;
+			}
+
+			#start > .overlay {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+
+				width: 100%;
+				height: 100%;
+
+				transition-duration: .2s;
+
+				cursor: pointer;
+			}
+
+			#start > .overlay:hover {
+				background-color: rgba(0,0,0,0.2);
+			}
+
+			#start > .overlay:active {
+				background-color: rgba(0,0,0,0.5);
+			}
+
+			#rivers {
+				position: absolute;
+
+				margin-left: -190vw;
+			}
+
+			#rivers > #rivers_inside {
+				max-height: 290px;
+			}
+
+			#rivers > #rivers_gun {
+				position: absolute;
+				top: -25px;
+				left: 65px;
+
+				opacity: 0;
+
+				height: 100px;
+			}
+
+			#rivers > #rivers_explode {
+				position: absolute;
+				left: 50px;
+
+				opacity: 0;
+
+				height: 300px;
+
+				animation: spin .25s linear 0s infinite;
+			}
+
+			#buttons
+			{
+				position: absolute;
+				z-index: 999;
+				display: none;
+				margin-top: 250px;
+			}
+
+			button
+			{
+				font-size: 2em;
+				border: 5px solid red;
+			}
+
+			#flash
+			{
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+
+				z-index: 100;
+
+				background: #FFF;
+
+				opacity: 0;
+			}
+
+			@keyframes spin
+			{
+				0%
+				{
+					transform: rotate(0deg);
+				}
+				100%
+				{
+					transform: rotate(1080deg);
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div id="viewport">
+			<div id="start">
+				<div id="start_overlay" class="overlay" onclick="experience_weezer()">
+					<span class="title">EXPERIENCE WEEZER</span>
+					<span class="subtitle">We welcome BitView users with open arms!</span>
+				</div>
+			</div>
+			<div id="flash"></div>
+			<div id="buttons">
+				<button id="sayitaintso_b">
+					Say It Ain't So
+				</button>
+				<button id="icantstoppartying_b">
+					I Can't Stop Partying
+				</button>
+			</div>
+			<div id="rivers">
+				<img id="rivers_gun" src="/assets/img/rivers_gun.png">
+				<img id="rivers_explode" src="/assets/img/rivers_explode.png">
+				<img id="rivers_inside" src="/assets/img/rivers.jpg">
+			</div>
+		</div>
+		<audio id="soundtrack" src="/assets/sfx/soundtrack.mp3"></audio>
+		<audio id="rivers_intro" src="/assets/sfx/rivers_intro.mp3"></audio>
+		<audio id="rivers_right" src="/assets/sfx/rivers_right.mp3"></audio>
+		<audio id="rivers_wrong" src="/assets/sfx/rivers_wrong.mp3"></audio>
+		<audio id="response_i_cant_stop_partying" src="/assets/sfx/response_i_cant_stop_partying.mp3"></audio>
+		<audio id="response_say_it_aint_so" src="/assets/sfx/response_say_it_aint_so.mp3"></audio>
+		<audio id="gun" src="/assets/sfx/gun.mp3"></audio>
+		<audio id="explosion" src="/assets/sfx/explosion.mp3"></audio>
+		<script type="text/javascript">
+			var clicked = 0;
+
+			var viewport = document.getElementById('viewport');
+
+			var start = document.getElementById('start');
+			var start_overlay = document.getElementById('start_overlay');
+
+			var rivers = document.getElementById('rivers');
+
+			var buttons = document.getElementById('buttons');
+
+			var rivers_gun = document.getElementById('rivers_gun');
+			var rivers_explode = document.getElementById('rivers_explode');
+
+			var flash = document.getElementById('flash');
+
+			var soundtrack = document.getElementById('soundtrack');
+
+			var rivers_intro = document.getElementById('rivers_intro');
+
+			var rivers_wrong = document.getElementById('rivers_wrong');
+			var rivers_right = document.getElementById('rivers_right');
+
+			var gun = document.getElementById('gun');
+			var explosion = document.getElementById('explosion');
+
+			var response_i_cant_stop_partying = document.getElementById('response_i_cant_stop_partying');
+			var response_say_it_aint_so = document.getElementById('response_say_it_aint_so');
+
+			var
+				scene_1, scene_2, scene_3,
+				scene_4, scene_5, scene_6,
+				scene_7, scene_8, scene_9,
+				scene_10;
+
+			function experience_weezer() {
+
+				if (clicked)
+					return;
+
+				setTimeout(() => {
+					clearTimeout(scene_1);
+					clearTimeout(scene_2);
+					clearTimeout(scene_3);
+					clearTimeout(scene_4);
+					clearTimeout(scene_5);
+					clearTimeout(scene_6);
+					clearTimeout(scene_7);
+					clearTimeout(scene_8);
+					clearTimeout(scene_9);
+					clearTimeout(scene_10);
+
+					viewport.style = "";
+					start.style = "";
+					start_overlay.style = "";
+					rivers.style = "";
+					buttons.style = "";
+					soundtrack.volume = 1;
+					rivers_gun.style = "";
+					rivers_explode.style = "";
+					flash.style = "";
+
+					soundtrack.pause();
+					soundtrack.currentTime = 0;
+					rivers_intro.pause();
+					rivers_intro.currentTime = 0;
+					rivers_wrong.pause();
+					rivers_wrong.currentTime = 0;
+					rivers_right.pause();
+					rivers_right.currentTime = 0;
+					gun.pause();
+					gun.currentTime = 0;
+					explosion.pause();
+					explosion.currentTime = 0;
+					response_i_cant_stop_partying.pause();
+					response_i_cant_stop_partying.currentTime = 0;
+					response_say_it_aint_so.pause();
+					response_say_it_aint_so.currentTime = 0;
+
+					clicked = 0;
+				},35000);
+
+				soundtrack.play();
+
+				clicked = 1;
+
+				start_overlay.style.backgroundColor = "rgba(0,0,0,0.5)";
+
+				var size = 1;
+				var opacity = 1;
+
+				var sizeup = setInterval(() => {
+					size = size + 0.05;
+					start.style.transform = "scale(" + size + ")";
+
+					opacity = opacity - 0.01;
+
+					if (opacity <= 0) {
+						start_overlay.style.opacity = 0;
+						return;
+					}
+
+					start_overlay.style.opacity = opacity;
+				}, 1);
+
+				scene_1 = setTimeout(() => {
+					viewport.style.backgroundImage = "url(/assets/img/fire.gif)";
+
+					clearInterval(sizeup);
+					start_overlay.style.opacity = 0;
+
+					opacity = 1;
+
+					var opacityd = setInterval(() => {
+						opacity = opacity - 0.01;
+
+						if (opacity <= 0) {
+							clearInterval(opacityd);
+							start.style.opacity = 0;
+							return;
+						}
+
+						start.style.opacity = opacity;
+					}, 1);
+
+					scene_2 = setTimeout(() => {
+						var movex = -120;
+						var movey = -120;
+						var rsize = 0;
+
+						var moved = setInterval(() => {
+							movex++;
+							movey++;
+							rsize = rsize + 0.02;
+
+							if (movex < 0) {
+								rivers.style.marginLeft = movex + "vw";
+							}
+							if (movey < 0) {
+								rivers.style.marginTop = movey + "vh";
+							}
+							if (rsize < 3) {
+								rivers.style.transform = "scale(" + rsize + ")";
+							}
+							else {
+								clearInterval(moved);
+
+								scene_3 = setTimeout(() => {
+									soundtrack.volume = 0.15;
+									rivers_intro.play();
+
+									scene_4 = setTimeout(() => {
+										document.addEventListener('click', (e) => {
+											if (!e.target.matches('#sayitaintso_b') && !e.target.matches('#icantstoppartying_b'))
+												return;
+
+											if (e.target.matches('#sayitaintso_b')) {
+												response_say_it_aint_so.play();
+
+												scene_4 = setTimeout(() => {
+													rivers_wrong.play();
+
+													scene_6 = setTimeout(() => {
+														rivers_gun.style.opacity = 1;
+
+														scene_7 = setTimeout(() => {
+															flash.style.opacity = 1;
+															gun.play();
+														}, 1000);
+													}, 1250);
+												}, 1550);
+											}
+											else if (e.target.matches('#icantstoppartying_b')) {
+												response_i_cant_stop_partying.play();
+
+												scene_8 = setTimeout(() => {
+													rivers_right.play();
+
+													scene_9 = setTimeout(() => {
+														rivers_explode.style.opacity = 1;
+
+														scene_10 = setTimeout(() => {
+															flash.style.opacity = 1;
+															explosion.play();
+														}, 250);
+													}, 1250);
+												}, 1750);
+											}
+
+											buttons.style = "";
+										}, false);
+
+										buttons.style.display = "block";
+									},5500);
+								}, 1000);
+							}
+						}, 50);
+					}, 1000);
+				},5000);
+			}
+		</script>
+	</body>
+</html>
